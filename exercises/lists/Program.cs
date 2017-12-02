@@ -7,6 +7,12 @@ namespace lists
     {
         static void Main(string[] args)
         {
+            List<Dictionary<string, string>> probes = new List<Dictionary<string, string>>(){};
+            probes.Add(new Dictionary<string, string>(){{"Hyugens", "Jupiter"}});
+            probes.Add(new Dictionary<string, string>(){{"Cassini", "Saturn"}});
+            probes.Add(new Dictionary<string, string>(){{"Opportunity", "Mars"}});
+            probes.Add(new Dictionary<string, string>(){{"Sojourn", "Mars"}});
+            probes.Add(new Dictionary<string, string>(){{"Mariner 2", "Venus"}});
             List<string> planetList = new List<string>(){"Mercury", "Mars"};
 
             // 1. Add Jupiter and Saturn at the end of the list
@@ -52,6 +58,13 @@ namespace lists
         {
             foreach(string planet in list){
                Console.WriteLine("{0} {1}", str, planet);
+            }
+        }
+
+        public static void writeProbes(List<Dictionary<string, string>> probes)
+        {
+            foreach(Dictionary<string, string> probeSet in probes){
+                Console.WriteLine(string.Format("{1}: {0}", probes.Key, probes.Value));
             }
         }
     }
