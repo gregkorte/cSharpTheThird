@@ -14,6 +14,8 @@ namespace lists
             probes.Add(new Dictionary<string, string>(){{"Sojourn", "Mars"}});
             probes.Add(new Dictionary<string, string>(){{"Mariner 2", "Venus"}});
             List<string> planetList = new List<string>(){"Mercury", "Mars"};
+            string str0 = "Probes:";
+            writeProbes(str0, probes);
 
             // 1. Add Jupiter and Saturn at the end of the list
             planetList.Add("Jupiter");
@@ -56,15 +58,20 @@ namespace lists
         }
         public static void writePlanets(string str, List<string> list)
         {
+            Console.WriteLine("{0}:", str);
             foreach(string planet in list){
-               Console.WriteLine("{0} {1}", str, planet);
+               Console.WriteLine("{0}", planet);
             }
         }
 
-        public static void writeProbes(List<Dictionary<string, string>> probes)
+        public static void writeProbes(string str, List<Dictionary<string, string>> probes)
         {
-            foreach(Dictionary<string, string> probeSet in probes){
-                Console.WriteLine(string.Format("{1}: {0}", probes.Key, probes.Value));
+            Console.WriteLine(str);
+
+            foreach (Dictionary<string, string> probeSet in probes){
+                foreach (KeyValuePair<string, string> set in probeSet){
+                    Console.WriteLine("{0} - {1}", set.Key, set.Value);
+                }
             }
         }
     }
