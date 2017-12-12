@@ -20,7 +20,7 @@ namespace dictionaries
             purchases.Add((ticker: "GE", shares: 32, price: 17.87));
             purchases.Add((ticker: "GE", shares: 80, price: 19.02));
             purchases.Add((ticker: "APL", shares: 200, price: 160.00));
-            purchases.Add((ticker: "CAT", shares: 25, price: 45.00));
+            purchases.Add((ticker: "CAT", shares: 100, price: 100.00));
 
             foreach ((string ticker, int shares, double price) purchase in purchases)
             {
@@ -40,35 +40,21 @@ namespace dictionaries
             */
             Dictionary<string, int> aggregate = new Dictionary<string, int>();
 
-            aggregate.Add("APL", 33500);
-            aggregate.Add("IBM", 4598);
-            aggregate.Add("GE", 12984);
-
-            foreach(KeyValuePair<string, int> item in aggregate){
-                Console.WriteLine(item);
-            }
-
             // Iterate over the purchases and 
-            foreach(KeyValuePair<string, int> data in aggregate){
-                var company = data.Key;
-                var total = data.Value;
-                Console.WriteLine(company total);
-                // foreach((string company, int shares, double sellAt) purchase in purchases){
-                //     if (data.Key = transaction.company){
-                //         Console.WriteLine("The valuation for {0} is {1}", transaction.company, (transaction.shares*data.num));
-                //     }
-                // }
-            }
-            
+            foreach((string ticker, int shares, double price) purchase in purchases){
                 // Does the company name key already exist in the report dictionary?
-            // foreach (<(string company, int volume)> data in aggregate)
-            // {
-            //     Console.WriteLine(data);
-
+                if(aggregate.ContainsKey(purchase.ticker)){
                 // If it does, update the total valuation
-
+                    aggregate[purchase.ticker] += (int)(purchase.shares * purchase.price);
                 // If not, add the new key and set its value
-            // }
+                }  else {
+                    aggregate.Add(purchase.ticker, (int)(purchase.shares * purchase.price));
+                }
+            }
+
+            foreach(KeyValuePair<string, int> agg in aggregate){
+                Console.WriteLine(agg);
+            }
         }
     }
 }
