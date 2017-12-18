@@ -8,16 +8,14 @@ namespace classes
         static void Main(string[] args)
         {
             Company myco = new Company("MyCo", DateTime.Now);
-            Console.WriteLine(myco.CreatedOn);
 
             Employee ted = new Employee("Ted", DateTime.Now, "Drone");
             Employee sally = new Employee("Sally", DateTime.Now, "Queen");
             Employee bill = new Employee("Bill", DateTime.Now, "Drone");
             Employee phil = new Employee("Phil", DateTime.Now, "Soldier");
-            Console.WriteLine(ted);
 
             List<Employee> myCoEmployees = new List<Employee>();
-            // myCoEmployees.Add(ted);
+            
             myco.Employees = myCoEmployees;
             myco.addEmployee(ted, myCoEmployees);
             myco.addEmployee(phil, myCoEmployees);
@@ -27,8 +25,6 @@ namespace classes
             myco.deleteEmployee(ted, myCoEmployees);
             
             myco.listEmployees();
-
-            
         }
 
         // Create a class that contains information about employees of a company and define methods to get/set employee name, job title, and start date.
@@ -87,7 +83,6 @@ namespace classes
                 this.Name = name;
                 this.CreatedOn = date;
             }
-
         }
     }
 }
