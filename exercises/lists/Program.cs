@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace lists
 {
@@ -7,12 +8,15 @@ namespace lists
     {
         static void Main(string[] args)
         {
-            List<Dictionary<string, string>> probes = new List<Dictionary<string, string>>(){};
-            probes.Add(new Dictionary<string, string>(){{"Hyugens", "Jupiter"}});
-            probes.Add(new Dictionary<string, string>(){{"Cassini", "Saturn"}});
-            probes.Add(new Dictionary<string, string>(){{"Opportunity", "Mars"}});
-            probes.Add(new Dictionary<string, string>(){{"Sojourn", "Mars"}});
-            probes.Add(new Dictionary<string, string>(){{"Mariner 2", "Venus"}});
+            // List<Dictionary<string, string>> probes = new List<Dictionary<string, string>>(){};
+            // probes.Add(new Dictionary<string, string>(){{"Hyugens", "Jupiter"}});
+            // probes.Add(new Dictionary<string, string>(){{"Cassini", "Saturn"}});
+            // probes.Add(new Dictionary<string, string>(){{"Opportunity", "Mars"}});
+            // probes.Add(new Dictionary<string, string>(){{"Sojourn", "Mars"}});
+            // probes.Add(new Dictionary<string, string>(){{"Mariner 2", "Venus"}});
+            List<Dictionary<string, List<string>>> probes = new List<Dictionary<string, List<string>>>(){};
+            probes.Add(new Dictionary<string, List<string>>(){{"Opportunity", new List<string>(){"Mercury", "Mars", "Jupiter"}}});
+            probes.Add(new Dictionary<string, List<string>>(){{"Sojourn", new List<string>(){"Mars"}}});
             List<string> planetList = new List<string>(){"Mercury", "Mars"};
             string str0 = "Probes:";
             writeProbes(str0, probes);
@@ -64,13 +68,21 @@ namespace lists
             }
         }
 
-        public static void writeProbes(string str, List<Dictionary<string, string>> probes)
+        public static void writeProbes(string str, List<Dictionary<string, List<string>>> probes)
         {
             Console.WriteLine(str);
 
-            foreach (Dictionary<string, string> probeSet in probes){
-                foreach (KeyValuePair<string, string> set in probeSet){
-                    Console.WriteLine("{0} - {1}", set.Key, set.Value);
+            foreach (Dictionary<string, List<string>> probeSet in probes){
+                foreach (KeyValuePair<string, List<string>> set in probeSet){
+                    string planetStr = "";
+                    foreach (string planetVisited in set.Value){
+                        if (planetVisited == set.Value.Last()){
+                            planetStr += planetVisited;
+                        } else {
+                        planetStr += planetVisited + ", ";
+                        }
+                    }
+                    Console.WriteLine($"{set.Key}: {planetStr}");
                 }
             }
         }
