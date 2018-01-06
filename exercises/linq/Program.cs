@@ -111,13 +111,46 @@ namespace linq
                 new Customer(){ Name="Sid Brown", Balance=49582.68, Bank="CITI"}
             };
             
-            var banks =  from c in customers
+            var bankCusCount =  from c in customers
                                 where c.Balance >= 1000000.00
                                 group c.Balance by c.Bank into m
                                 select new {Bank = m.Key, Count = m.Count()};
-            foreach (var b in banks) {
+            foreach (var b in bankCusCount) {
                     Console.WriteLine("{0} {1}", b.Bank, b.Count);
                 }
+
+            // Create some banks and store in a List
+            List<Bank> banks = new List<Bank>() {
+                new Bank(){ Name="First Tennessee", Symbol="FTB"},
+                new Bank(){ Name="Wells Fargo", Symbol="WF"},
+                new Bank(){ Name="Bank of America", Symbol="BOA"},
+                new Bank(){ Name="Citibank", Symbol="CITI"},
+            };
+
+            /*
+            TASK:
+            As in the previous exercise, you're going to output the millionaires,
+            but you will also display the full name of the bank. You also need
+            to sort the millionaires' names, ascending by their LAST name.
+
+            Example output:
+                Tina Fey at Citibank
+                Joe Landy at Wells Fargo
+                Sarah Ng at First Tennessee
+                Les Paul at Wells Fargo
+                Peg Vale at Bank of America
+            */
+
+            var millionaireReport =     from c in customers
+                                        join b in banks on c.Bank equals b.Symbol
+                                        where c.Balance >= 1000000.00
+                                        orderby c.Name.Remove(0, c.Name.IndexOf(" ")) ascending
+                                        select new {Name = c.Name, Bank = b.Name};
+
+            foreach (var c in millionaireReport)
+            {
+                Console.WriteLine($"{c.Name} at {c.Bank}");
+            }
         }
 
                 // Build a collection of customers who are millionaires
@@ -126,6 +159,13 @@ namespace linq
             public string Name { get; set; }
             public double Balance { get; set; }
             public string Bank { get; set; }
+        }
+
+        // Define a bank
+        public class Bank
+        {
+            public string Symbol { get; set; }
+            public string Name { get; set; }
         }
     }   
 }
