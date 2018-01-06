@@ -50,6 +50,28 @@ namespace linq
            Console.WriteLine(num);
            };
 
+           // Output how many numbers are in this list
+            List<int> numbersY = new List<int>()
+            {
+                15, 8, 21, 24, 32, 13, 30, 12, 7, 54, 48, 4, 49, 96
+            };
+            Console.WriteLine($"There are {numbersY.Count()} numbers in this list.");
+
+            // How much money have we made?
+            List<double> purchases = new List<double>()
+            {
+                2340.29, 745.31, 21.76, 34.03, 4786.45, 879.45, 9442.85, 2454.63, 45.65
+            };
+            Console.WriteLine($"We have made ${purchases.Aggregate((a, b) => a + b)} to date.");
+
+            // What is our most expensive product?
+            List<double> prices = new List<double>()
+            {
+                879.45, 9442.85, 2454.63, 45.65, 2340.29, 34.03, 4786.45, 745.31, 21.76
+            };
+            Console.WriteLine($"Our most expensive price is ${prices.Max()}");
+            
+
         }
     }   
 }
