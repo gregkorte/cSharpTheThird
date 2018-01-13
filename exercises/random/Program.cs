@@ -8,7 +8,6 @@ namespace random
         static void Main(string[] args)
         {
             Random random = new Random();
-            Console.WriteLine(random);
             List<int> numbers = new List<int>();
             List<int> squares = new List<int>();
             for(var i = 0; i < 10; i++){
