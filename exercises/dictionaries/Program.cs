@@ -53,7 +53,7 @@ namespace dictionaries
             }
 
             foreach(KeyValuePair<string, int> agg in aggregate){
-                Console.WriteLine(agg);
+                Console.WriteLine($"{agg.Key}: {agg.Value}");
             }
         }
     }
