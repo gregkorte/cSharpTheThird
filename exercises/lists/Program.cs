@@ -8,12 +8,6 @@ namespace lists
     {
         static void Main(string[] args)
         {
-            // List<Dictionary<string, string>> probes = new List<Dictionary<string, string>>(){};
-            // probes.Add(new Dictionary<string, string>(){{"Hyugens", "Jupiter"}});
-            // probes.Add(new Dictionary<string, string>(){{"Cassini", "Saturn"}});
-            // probes.Add(new Dictionary<string, string>(){{"Opportunity", "Mars"}});
-            // probes.Add(new Dictionary<string, string>(){{"Sojourn", "Mars"}});
-            // probes.Add(new Dictionary<string, string>(){{"Mariner 2", "Venus"}});
             List<Dictionary<string, List<string>>> probes = new List<Dictionary<string, List<string>>>(){};
             probes.Add(new Dictionary<string, List<string>>(){{"Opportunity", new List<string>(){"Mercury", "Mars", "Jupiter"}}});
             probes.Add(new Dictionary<string, List<string>>(){{"Sojourn", new List<string>(){"Mars"}}});
@@ -63,9 +57,8 @@ namespace lists
         public static void writePlanets(string str, List<string> list)
         {
             Console.WriteLine("{0}:", str);
-            foreach(string planet in list){
-               Console.WriteLine("{0}", planet);
-            }
+            Console.Write(String.Join(", ", list));
+            Console.WriteLine("\n");
         }
 
         public static void writeProbes(string str, List<Dictionary<string, List<string>>> probes)
