@@ -44,6 +44,28 @@ namespace bangazon
             Console.WriteLine(it.toString());
             Console.WriteLine(marketing.toString());
             Console.WriteLine($"{hr.toString()} \n");
+
+            Console.WriteLine($"\n>>> Eat method #1: Selecting a random restaurant for this employee <<<");
+            Employee ted = new Employee("Ted", "Croatia");
+            Console.WriteLine($"{ted.eat()}");
+
+            Console.WriteLine($"\n>>> Eat method #2: Printing what the employee ate <<<");
+            Console.WriteLine($"{ted.eat("hambuergher")}");
+
+            Console.WriteLine($"\n>>> Eat method #3: Selecting a random restaurant for this employee <<<");
+            List<Employee> emps = new List<Employee>();
+            Employee saul = new Employee("Saul", "Minion");
+            Employee dave = new Employee("Dave", "Rumbah");
+            Employee larry = new Employee("Larry", "Mankles");
+            emps.Add(saul);
+            emps.Add(dave);
+            emps.Add(larry);
+            
+            Console.WriteLine($"{ted.eat(emps)}");
+
+            Console.WriteLine($"\n>>> Eat method #4: Selecting a random restaurant, for and companions for this employee <<<");
+            ted.eat("hambuergher", emps);
+
         }
     }
 }
