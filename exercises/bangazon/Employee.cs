@@ -3,6 +3,16 @@ using System.Collections.Generic;
 
 namespace bangazon
 {
+    public interface IFullTime
+    {
+        double Salary { get; set; }
+    }
+
+    public interface IPartTime
+    {
+        double HourlyRate { get; set; }
+    }
+
     public class Employee
     {
         private string _first_name;
@@ -55,6 +65,26 @@ namespace bangazon
                 coworkers.Add(c._first_name);
             }
             Console.WriteLine($"{getFullName()} is eating {food} today at {restaurants[r]} with {String.Join(", ", coworkers)}.");
+        }
+        
+    }
+
+    public class HumanResourcesEmployee : IFullTime
+    {
+        private double _salary;
+
+        public double Salary
+        {
+            get { return _salary; }
+            set
+            {
+                if(value >= 10 && value <= 35)
+                {
+                    _salary = value;
+                } else {
+                    throw new ArgumentOutOfRangeException("Cannot set salary to value specified");
+                }
+            }
         }
     }
 

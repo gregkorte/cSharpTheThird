@@ -61,7 +61,8 @@ namespace bangazon
             emps.Add(dave);
             emps.Add(larry);
             
-            Console.WriteLine($"{ted.eat(emps)}");
+            List<string> coworkers = ted.eat(emps);
+            Console.WriteLine(String.Join(", ", coworkers));
 
             Console.WriteLine($"\n>>> Eat method #4: Selecting a random restaurant, for and companions for this employee <<<");
             ted.eat("hambuergher", emps);
