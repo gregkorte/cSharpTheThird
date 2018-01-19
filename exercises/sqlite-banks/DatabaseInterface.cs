@@ -11,7 +11,7 @@ namespace BankTeller
         public DatabaseInterface()
         {
             // Replace {you} with the correct value
-            _connectionString = $"Data Source=/Users/stevebrownlee/dev/github/stevebrownlee/BankTeller/bankteller.db";
+            _connectionString = $"Data Source=./bankteller.db";
             _connection = new SqliteConnection(_connectionString);
         }
 
