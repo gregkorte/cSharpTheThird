@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
 
 namespace BagOLoot
 {
@@ -6,7 +9,25 @@ namespace BagOLoot
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var db = new DatabaseInterface();
+            db.Check();
+
+            Console.WriteLine("WELCOME TO THE BAG O' LOOT SYSTEM");
+            Console.WriteLine("*********************************");
+            Console.WriteLine("1. Add a child");
+                Console.WriteLine("> ");
+                int choice;
+                Int32.TryParse(Console.ReadLine(), out choice);
+
+            if(choice == 1)
+            {
+                Console.WriteLine("Enter name of child");
+                Console.WriteLine("> ");
+                string childName = Console.ReadLine();
+                ChildRegister registry = new ChildRegister();
+                bool childId = registry.AddChildren(childName);
+                Console.WriteLine(childId);
+            }
         }
     }
 }
