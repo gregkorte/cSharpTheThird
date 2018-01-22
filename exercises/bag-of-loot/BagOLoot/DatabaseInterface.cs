@@ -17,6 +17,38 @@ namespace BagOLoot
             _connection = new SqliteConnection(_connectionString);
         }
 
+        public void Query(string command, Action<SqliteDataReader> handler)
+        {
+            using(_connection)
+            {
+                _connection.Open();
+                SqliteCommand dbcmd = _connection.CreateCommand();
+                dbcmd.CommandText = command;
+
+                using(SqliteDataReader dataReader = dbcmd.ExecuteReader())
+                {
+                    handler(dataReader);
+                }
+                dbcmd.Dispose();
+                _connection.Close();
+            }
+        }
+
+        public void Change(string command)
+        {
+            using(_connection)
+            {
+                _connection.Open();
+                SqliteCommand dbcmd = _connection.CreateCommand();
+                dbcmd.CommandText = command;
+
+                dbcmd.ExecuteNonQuery();
+
+                dbcmd.Dispose();
+                _connection.Close();
+            }
+        }
+
         public void Check()
         {
             using(_connection)

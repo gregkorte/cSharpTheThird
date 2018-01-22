@@ -18,15 +18,17 @@ namespace BagOLoot.Tests
         [InlineData("Kelly")]
         public void AddChildren(string child)
         {
-            var result = _register.AddChildren(child);
-            Assert.True(result);
+            var result = _register.AddChild(child);
+            Assert.True(result != 0);
         }
 
         [Fact]
         public void ReturnListOfChildren()
         {
-            var result = _register.GetChildren();
-            Assert.IsType<List<string>>(result);
+            _register.AddChild("Svetlana");
+            List<Child> children = _register.GetChildren();
+            Assert.IsType<List<Child>>(children);
+            Assert.True(children.Count > 0);
         }
     }
 }
