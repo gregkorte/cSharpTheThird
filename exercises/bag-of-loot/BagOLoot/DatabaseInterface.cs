@@ -49,23 +49,21 @@ namespace BagOLoot
             }
         }
 
-        public void Check()
+        public void CheckChildTable()
         {
             using(_connection)
             {
                 _connection.Open();
                 SqliteCommand dbcmd = _connection.CreateCommand();
 
-                // Check to see if table exists
+                // Query the child table to see if it's created
                 dbcmd.CommandText = $"select id from child";
 
-                // If above query fails create the table
                 try
                 {
-                    using(SqliteDataReader reader = dbcmd.ExecuteReader())
-                    {
-                        
-                    }
+                    // Try to run the query. If table doesn't exist, create it
+                    using(SqliteDataReader reader = dbcmd.ExecuteReader()){}
+
                     dbcmd.Dispose();
                 }
                 catch(Microsoft.Data.Sqlite.SqliteException ex)
@@ -73,11 +71,47 @@ namespace BagOLoot
                     Console.WriteLine(ex.Message);
                     if(ex.Message.Contains("no such table"))
                     {
-                        dbcmd.CommandText = $@"create table child (
+                        dbcmd.CommandText = $@"create table child(
                             `id`        integer NOT NULL PRIMARY KEY AUTOINCREMENT,
                             `name`      varchar(80) NOT NULL,
                             `delivered` integer NOT NULL default 0
-                            )";
+                        )";
+                        dbcmd.ExecuteNonQuery();
+                        dbcmd.Dispose();
+                    }
+                }
+                _connection.Close();
+            }
+        }
+
+        public void CheckToyTable()
+        {
+            using(_connection)
+            {
+                _connection.Open();
+                SqliteCommand dbcmd = _connection.CreateCommand();
+
+                // Query the toy table to see if it's created
+                dbcmd.CommandText = $"select id from toy";
+
+                try
+                {
+                    // Try to run the query. If table doesn't exist, create it
+                    using(SqliteDataReader reader = dbcmd.ExecuteReader()){}
+
+                    dbcmd.Dispose();
+                }
+                catch(Microsoft.Data.Sqlite.SqliteException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    if(ex.Message.Contains("no such table"))
+                    {
+                        dbcmd.CommandText = $@"create table toy(
+                            `id`        integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+                            `name`      varchar(80) NOT NULL,
+                            `childId`   integer NOT NULL,
+                            FOREIGN KEY (`childId`) REFERENCES `child`(`id`)
+                        )";
                         dbcmd.ExecuteNonQuery();
                         dbcmd.Dispose();
                     }

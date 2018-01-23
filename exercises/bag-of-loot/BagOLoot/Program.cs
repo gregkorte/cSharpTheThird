@@ -7,10 +7,14 @@ namespace BagOLoot
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var db = new DatabaseInterface();
-            db.Check();
+            db.CheckChildTable();
+            db.CheckToyTable();
+
+            // choice will hold the number entered by the user
+            // int choice;
 
             Console.WriteLine("WELCOME TO THE BAG O' LOOT SYSTEM");
             Console.WriteLine("*********************************");

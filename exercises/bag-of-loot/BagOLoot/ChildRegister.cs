@@ -36,6 +36,7 @@ namespace BagOLoot
         {
             _db.Query("Select id, name, delivered from child",
                 (SqliteDataReader reader) => {
+                    _children.Clear();
                     while(reader.Read())
                     {
                         _children.Add(new Child(){
