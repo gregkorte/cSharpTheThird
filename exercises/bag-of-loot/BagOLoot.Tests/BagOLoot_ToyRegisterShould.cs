@@ -30,7 +30,7 @@ namespace BagOLoot.Tests
             Assert.True(toy.id != 0);
         }
 
-        [Fact]
+        // [Fact]
         // public void RevokeToyFromChild()
         // {
         //     int id = _book.AddChild("Terrell");

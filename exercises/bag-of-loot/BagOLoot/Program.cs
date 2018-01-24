@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BagOLoot.Actions;
 
 
 namespace BagOLoot
@@ -9,29 +10,37 @@ namespace BagOLoot
     {
         public static void Main(string[] args)
         {
-            var db = new DatabaseInterface();
+            DatabaseInterface db = new DatabaseInterface("BAGOLOOT_DB");
             db.CheckChildTable();
             db.CheckToyTable();
 
+            MainMenu menu = new MainMenu();
+            ChildRegister book = new ChildRegister(db);
+            ToyRegister bag = new ToyRegister(db);
+
             // choice will hold the number entered by the user
-            // int choice;
+            int choice;
 
-            Console.WriteLine("WELCOME TO THE BAG O' LOOT SYSTEM");
-            Console.WriteLine("*********************************");
-            Console.WriteLine("1. Add a child");
-                Console.WriteLine("> ");
-                int choice;
-                Int32.TryParse(Console.ReadLine(), out choice);
-
-            if(choice == 1)
+            do
             {
-                Console.WriteLine("Enter name of child");
-                Console.WriteLine("> ");
-                string childName = Console.ReadLine();
-                ChildRegister registry = new ChildRegister();
-                int childId = registry.AddChild(childName);
-                Console.WriteLine(childId);
-            }
+                // Show main menu
+                choice = menu.Show();
+
+                switch(choice)
+                {
+                    // Menu option 1
+                    case 1:
+                        CreateChild.DoAction(book);
+                        break;
+
+                    // Menu option 2
+                    case 2:
+                        AddToy.DoAction(bag, book, db);
+                        break;
+                }
+
+            } 
+            while(choice != 3);
         }
     }
 }

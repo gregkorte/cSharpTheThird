@@ -9,11 +9,13 @@ namespace BagOLoot
 {
     public class DatabaseInterface
     {
-        private string _connectionString = $"Data Source={Environment.GetEnvironmentVariable("BAGOLOOT_DB")}";
+        private string _connectionString;
         private SqliteConnection _connection;
 
-        public DatabaseInterface()
+        public DatabaseInterface(string database)
         {
+            string env = $"{Environment.GetEnvironmentVariable(database)}";
+            _connectionString = $"Data Source={env}";
             _connection = new SqliteConnection(_connectionString);
         }
 
@@ -34,7 +36,7 @@ namespace BagOLoot
             }
         }
 
-        public void Change(string command)
+        public void Delete(string command)
         {
             using(_connection)
             {
@@ -47,6 +49,32 @@ namespace BagOLoot
                 dbcmd.Dispose();
                 _connection.Close();
             }
+        }
+
+        public int Insert(string command)
+        {
+            int insertedItemId = 0;
+
+            using(_connection)
+            {
+                _connection.Open();
+                SqliteCommand dbcmd = _connection.CreateCommand();
+                dbcmd.CommandText = command;
+
+                dbcmd.ExecuteNonQuery();
+
+                this.Query("select last_insert_rowid()",
+                    (SqliteDataReader reader) => {
+                        while(reader.Read())
+                        {
+                            insertedItemId = reader.GetInt32(0);
+                        }
+                    }
+                );
+                dbcmd.Dispose();
+                _connection.Close();
+            }
+            return insertedItemId;
         }
 
         public void CheckChildTable()
@@ -76,7 +104,14 @@ namespace BagOLoot
                             `name`      varchar(80) NOT NULL,
                             `delivered` integer NOT NULL default 0
                         )";
-                        dbcmd.ExecuteNonQuery();
+                        try
+                        {
+                            dbcmd.ExecuteNonQuery();
+                        }
+                        catch(Microsoft.Data.Sqlite.SqliteException crex)
+                        {
+                            Console.WriteLine("Table already exists. Ignoring");
+                        }
                         dbcmd.Dispose();
                     }
                 }
@@ -112,7 +147,14 @@ namespace BagOLoot
                             `childId`   integer NOT NULL,
                             FOREIGN KEY (`childId`) REFERENCES `child`(`id`)
                         )";
-                        dbcmd.ExecuteNonQuery();
+                        try
+                        {
+                            dbcmd.ExecuteNonQuery();
+                        }
+                        catch(Microsoft.Data.Sqlite.SqliteException crex)
+                        {
+                            Console.WriteLine("Table already exists. Ignoring");
+                        }
                         dbcmd.Dispose();
                     }
                 }
