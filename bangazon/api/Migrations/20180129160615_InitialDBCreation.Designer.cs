@@ -11,7 +11,7 @@ using System;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180127175406_InitialDBCreation")]
+    [Migration("20180129160615_InitialDBCreation")]
     partial class InitialDBCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,7 +152,7 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("CustomerId");
@@ -163,7 +163,7 @@ namespace api.Migrations
 
                     b.Property<int?>("PaymentTypeId");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
 

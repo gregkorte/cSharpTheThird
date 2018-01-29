@@ -151,7 +151,7 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("CustomerId");
@@ -162,7 +162,7 @@ namespace api.Migrations
 
                     b.Property<int?>("PaymentTypeId");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
 
