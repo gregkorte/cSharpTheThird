@@ -8,7 +8,7 @@ namespace api.Models
     public class Order
     {
         [Key]
-        public int Id { get; set; }
+        public int OrderId { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
