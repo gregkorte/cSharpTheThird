@@ -51,6 +51,7 @@ namespace api.Controllers
             }
             catch(System.InvalidOperationException ex)
             {
+                Console.Write(ex);
                 return NotFound();
             }
         }
