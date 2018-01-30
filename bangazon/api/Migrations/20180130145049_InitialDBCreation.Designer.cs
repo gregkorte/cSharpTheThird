@@ -11,7 +11,7 @@ using System;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180129160615_InitialDBCreation")]
+    [Migration("20180130145049_InitialDBCreation")]
     partial class InitialDBCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
