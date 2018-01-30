@@ -12,7 +12,5 @@ namespace api.Models
         [StringLength(55)]
         public string Name { get; set; }
         public double Budget { get; set; }
-
-        public ICollection<Employee> Employees;
     }
 }
