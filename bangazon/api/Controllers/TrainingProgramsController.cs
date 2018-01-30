@@ -127,9 +127,13 @@ namespace api.Controllers
             {
                 return NotFound();
             }
-            _context.TrainingProgram.Remove(trainingProgram);
-            _context.SaveChanges();
-            return Ok(trainingProgram);
+            if(trainingProgram.StartDate > DateTime.Now)
+            {
+                _context.TrainingProgram.Remove(trainingProgram);
+                _context.SaveChanges();
+                return Ok(trainingProgram);
+            }
+            return new StatusCodeResult(StatusCodes.Status204NoContent);
         }
 
         private bool TrainingProgramExists(int trainingProgramId)
