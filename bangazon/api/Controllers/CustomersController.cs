@@ -117,21 +117,6 @@ namespace api.Controllers
             return new StatusCodeResult(StatusCodes.Status204NoContent);
         }
 
-        // DELETE api/customers/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            Customer customer = _context.Customer.Single(c => c.CustomerId == id);
-
-            if(customer == null)
-            {
-                return NotFound();
-            }
-            _context.Customer.Remove(customer);
-            _context.SaveChanges();
-            return Ok(customer);
-        }
-
         private bool CustomerExists(int customerId)
         {
             return _context.Customer.Any(c => c.CustomerId == customerId);

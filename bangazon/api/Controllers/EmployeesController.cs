@@ -117,21 +117,6 @@ namespace api.Controllers
             return new StatusCodeResult(StatusCodes.Status204NoContent);
         }
 
-        // DELETE api/employees/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            Employee employee = _context.Employee.Single(c => c.EmployeeId == id);
-
-            if(employee == null)
-            {
-                return NotFound();
-            }
-            _context.Employee.Remove(employee);
-            _context.SaveChanges();
-            return Ok(employee);
-        }
-
         private bool EmployeeExists(int employeeId)
         {
             return _context.Employee.Any(c => c.EmployeeId == employeeId);

@@ -117,21 +117,6 @@ namespace api.Controllers
             return new StatusCodeResult(StatusCodes.Status204NoContent);
         }
 
-        // DELETE api/departments/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            Department department = _context.Department.Single(c => c.DepartmentId == id);
-
-            if(department == null)
-            {
-                return NotFound();
-            }
-            _context.Department.Remove(department);
-            _context.SaveChanges();
-            return Ok(department);
-        }
-
         private bool DepartmentExists(int departmentId)
         {
             return _context.Department.Any(c => c.DepartmentId == departmentId);
