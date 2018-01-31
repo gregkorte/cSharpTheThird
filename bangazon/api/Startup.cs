@@ -31,6 +31,16 @@ namespace api
             Console.WriteLine($"connection = {connection}");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
 
+            // Registerthe CORS service
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOnlyBangazonians",
+                    builder => builder.WithOrigins("http://bangazon.com:8080")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                );
+            });
+
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -45,6 +55,10 @@ namespace api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Enable CORS
+            // Shows UseCors with named policy.
+            app.UseCors("AllowOnlyBangazonians");
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
