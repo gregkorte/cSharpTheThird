@@ -324,7 +324,7 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.OrderProduct", b =>
                 {
                     b.HasOne("api.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
 

@@ -11,7 +11,7 @@ using System;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180130145049_InitialDBCreation")]
+    [Migration("20180131173900_InitialDBCreation")]
     partial class InitialDBCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -325,7 +325,7 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.OrderProduct", b =>
                 {
                     b.HasOne("api.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
 
