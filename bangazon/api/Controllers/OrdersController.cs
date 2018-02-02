@@ -23,7 +23,13 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var orders = _context.Order.ToList();
+            var orders = _context.Order
+                    .Select(o => new {
+                        OrderId = o.OrderId,
+                        CustomerId = o.CustomerId,
+                        PaymentTypeId = o.PaymentTypeId
+                    }).ToList();
+
             if(orders == null)
             {
                 return NotFound();
@@ -41,7 +47,21 @@ namespace api.Controllers
             }
             try
             {
-                Order order = _context.Order.Single(c => c.OrderId == id);
+                var order = _context.Order
+                .Where(o => o.OrderId == id)
+                .Select(o => new {
+                    OrderId = o.OrderId,
+                    CustomerId = o.CustomerId,
+                    PaymentTypeId = o.PaymentTypeId,
+                    Products = o.OrderProducts
+                        .Select(p => new {
+                            ProductId = p.ProductId,
+                            Name = p.Product.Title,
+                            Description = p.Product.Description,
+                            Price = p.Product.Price
+                        })
+                    }
+                );
 
                 if(order == null)
                 {
