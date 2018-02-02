@@ -23,7 +23,7 @@ namespace api.Models
         [StringLength(55)]
         public string LastName { get; set; }
         
-        public bool active { get; set; } = false;
+        public bool Active { get; set; } = false;
         public DateTime LastLogin { get; set; }
     }
 }
