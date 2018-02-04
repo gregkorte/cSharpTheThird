@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using api.Data;
 using api.Models;
+using System.Collections.Specialized;
 
 namespace api.Controllers
 {
@@ -23,6 +24,7 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+            
             var orders = _context.Order
                     .Select(o => new {
                         OrderId = o.OrderId,
@@ -34,6 +36,7 @@ namespace api.Controllers
             {
                 return NotFound();
             }
+            
             return Ok(orders);
         }
 
