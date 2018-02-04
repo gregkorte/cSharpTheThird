@@ -28,14 +28,11 @@ namespace api.Migrations
                 {
                     CustomerId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Address = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
+                    Active = table.Column<bool>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "strftime('%Y-%m-%d %H:%M:%S')"),
                     FirstName = table.Column<string>(maxLength: 55, nullable: false),
                     LastLogin = table.Column<DateTime>(nullable: false),
-                    LastName = table.Column<string>(maxLength: 55, nullable: false),
-                    Phone = table.Column<string>(nullable: true),
-                    Zipcode = table.Column<string>(nullable: true)
+                    LastName = table.Column<string>(maxLength: 55, nullable: false)
                 },
                 constraints: table =>
                 {

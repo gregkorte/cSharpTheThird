@@ -40,9 +40,7 @@ namespace api.Migrations
                     b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
-
-                    b.Property<string>("City");
+                    b.Property<bool>("Active");
 
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAddOrUpdate()
@@ -57,10 +55,6 @@ namespace api.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(55);
-
-                    b.Property<string>("Phone");
-
-                    b.Property<string>("Zipcode");
 
                     b.HasKey("CustomerId");
 
