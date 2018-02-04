@@ -23,6 +23,26 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+            string active = HttpContext.Request.Query["active"];
+            if(active != null)
+            {
+                if(active == "false")
+                {
+                    var inactive = _context.Customer
+                    .Select(c => c)
+                    .Where(c => !c.Active)
+                    .ToList();
+                    if(inactive == null)
+                    {
+                        return NotFound();
+                    }
+                    return Ok(inactive);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
             var customers = _context.Customer.ToList();
             if(customers == null)
             {
