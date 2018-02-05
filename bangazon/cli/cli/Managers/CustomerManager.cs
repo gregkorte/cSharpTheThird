@@ -16,6 +16,7 @@ namespace cli
         {
             return _customerTable.Where(c => c.CustomerId == id).Single();
         }
+        
         public List<Customer> GetAllCustomers()
         {
             return _customerTable;
