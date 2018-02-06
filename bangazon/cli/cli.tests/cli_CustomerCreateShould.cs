@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
+
 namespace cli.tests
 {
     public class CustomerCreateShould
