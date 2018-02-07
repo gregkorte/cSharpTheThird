@@ -1,14 +1,17 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace cli.tests
 {
-    public class cli_ProductShould
+    public class ProductShould
     {
-        [Fact]
-        public void Add()
+        private Product _product;
+        private ProductManager manager = new ProductManager();
+
+        public ProductShould()
         {
-            Product _product = new Product(
+            _product = new Product(
                 1,
                 "Shovel",
                 "I dig this thing",
@@ -16,13 +19,34 @@ namespace cli.tests
                 1,
                 1
             );
+        }
 
+        [Fact]
+        public void AddPropertiesToInstance()
+        {
             Assert.Equal(_product.ProductId, 1);
             Assert.Equal(_product.Name, "Shovel");
             Assert.Equal(_product.Description, "I dig this thing");
             Assert.Equal(_product.Price, 34.99);
             Assert.Equal(_product.ProductTypeId, 1);
             Assert.Equal(_product.CustomerId, 1);
+        }
+
+        [Fact]
+        public void GetSingleProduct()
+        {
+            manager.Add(_product);
+            Product product = manager.GetSingleProduct(1);
+
+            Assert.Equal(product.CustomerId, 1);
+        }
+
+        public void GetAllProducts()
+        {
+            manager.Add(_product);
+            List<Product> allProducts = manager.GetAllProducts();
+
+            Assert.Contains(_product, allProducts);
         }
     }
 }
