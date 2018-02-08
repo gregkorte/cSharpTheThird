@@ -48,5 +48,14 @@ namespace cli.tests
 
             Assert.Contains(_product, allProducts);
         }
+
+        public void DeleteProduct()
+        {
+            manager.Add(_product);
+            manager.DeleteProduct(_product);
+            List<Product> allProducts = manager.GetAllProducts();
+
+            Assert.Empty(allProducts);
+        }
     }
 }

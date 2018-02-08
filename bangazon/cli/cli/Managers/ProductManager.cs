@@ -21,5 +21,10 @@ namespace cli
         {
             return _productTable;
         }
+
+        public void DeleteProduct(Product product)
+        {
+            _productTable.Remove(product);
+        }
     }
 }
