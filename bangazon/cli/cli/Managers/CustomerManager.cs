@@ -6,6 +6,7 @@ namespace cli
     public class CustomerManager
     {
         private List<Customer> _customerTable = new List<Customer>();
+        private Customer _activeCustomer;
 
         public void Add(Customer customer)
         {
@@ -14,12 +15,20 @@ namespace cli
 
         public Customer GetSingleCustomer(int id)
         {
-            return _customerTable.Where(c => c.CustomerId == id).Single();
+            Customer customer = _customerTable.Where(c => c.CustomerId == id).Single();
+            // activeCustomer = customer;
+            return customer;
         }
         
         public List<Customer> GetAllCustomers()
         {
             return _customerTable;
+        }
+
+        public Customer GetActiveCustomer(Customer customer)
+        {
+            _activeCustomer = customer;
+            return _activeCustomer;
         }
     }
 }

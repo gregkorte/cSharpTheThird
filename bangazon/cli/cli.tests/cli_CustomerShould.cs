@@ -5,11 +5,12 @@ using Xunit;
 
 namespace cli.tests
 {
-    public class CustomerCreateShould
+    public class CustomerShould
     {
         private Customer _customer;
+        private CustomerManager _manager = new CustomerManager();
 
-        public CustomerCreateShould()
+        public CustomerShould()
         {
             _customer = new Customer(
                 1,
@@ -32,10 +33,9 @@ namespace cli.tests
         [Fact]
         public void GetSingleCustomer()
         {
-            CustomerManager manager = new CustomerManager();
-            manager.Add(_customer);
+            _manager.Add(_customer);
 
-            Customer customer = manager.GetSingleCustomer(1);
+            Customer customer = _manager.GetSingleCustomer(1);
 
             Assert.Equal(customer.CustomerId 
             , 1);
@@ -44,12 +44,21 @@ namespace cli.tests
         [Fact]
         public void GetAllCustomers()
         {
-            CustomerManager manager = new CustomerManager();
-            manager.Add(_customer);
+            _manager.Add(_customer);
 
-            List<Customer> allCustomers = manager.GetAllCustomers();
+            List<Customer> allCustomers = _manager.GetAllCustomers();
 
             Assert.Contains(_customer, allCustomers);
+        }
+
+        [Fact]
+        public void SelectActiveCustomer()
+        {
+            _manager.Add(_customer);
+            Customer customer = _manager.GetSingleCustomer(1);
+            Customer activeCustomer = _manager.GetActiveCustomer(customer);
+
+            Assert.Equal(_customer, activeCustomer);
         }
     }
 }
