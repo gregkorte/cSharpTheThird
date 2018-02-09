@@ -25,7 +25,7 @@ namespace cli.tests
         }
 
         [Fact]
-        public GetSingleOrder()
+        public void GetSingleOrder()
         {
             manager.Add(_order);
             Order order = manager.GetSingleOrder(1);
