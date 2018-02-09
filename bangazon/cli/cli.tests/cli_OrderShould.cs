@@ -42,5 +42,14 @@ namespace cli.tests
             Assert.Contains(_order, allOrders);
         }
 
+        [Fact]
+        public void AddPaymentTypeToOrder()
+        {
+            manager.Add(_order);
+            manager.CompleteOrder(1, 3);
+            Order order = manager.GetSingleOrder(1);
+
+            Assert.Equal(3, order.PaymentTypeId);
+        }
     }
 }

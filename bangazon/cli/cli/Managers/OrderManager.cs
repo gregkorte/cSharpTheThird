@@ -21,5 +21,11 @@ namespace cli
         {
             return _ordersTable;
         }
+
+        public void CompleteOrder(int id, int paymentTypeId)
+        {
+            Order order = _ordersTable.Where(o => o.OrderId == id).Single();
+            order.PaymentTypeId = paymentTypeId;
+        }
     }
 }
