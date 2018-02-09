@@ -16,5 +16,10 @@ namespace cli
         {
             return _ordersTable.Where(o => o.OrderId == id).Single();
         }
+
+        public List<Order> GetAllOrders()
+        {
+            return _ordersTable;
+        }
     }
 }

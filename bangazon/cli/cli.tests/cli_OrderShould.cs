@@ -32,5 +32,15 @@ namespace cli.tests
 
             Assert.Equal(_order, order);
         }
+
+        [Fact]
+        public void GetAllOrders()
+        {
+            manager.Add(_order);
+            List<Order> allOrders = manager.GetAllOrders();
+
+            Assert.Contains(_order, allOrders);
+        }
+
     }
 }
