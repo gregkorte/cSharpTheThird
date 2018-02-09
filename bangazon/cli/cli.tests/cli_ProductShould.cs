@@ -41,6 +41,7 @@ namespace cli.tests
             Assert.Equal(product.CustomerId, 1);
         }
 
+        [Fact]
         public void GetAllProducts()
         {
             manager.Add(_product);
@@ -49,6 +50,7 @@ namespace cli.tests
             Assert.Contains(_product, allProducts);
         }
 
+        [Fact]
         public void DeleteProduct()
         {
             manager.Add(_product);
@@ -56,6 +58,15 @@ namespace cli.tests
             List<Product> allProducts = manager.GetAllProducts();
 
             Assert.Empty(allProducts);
+        }
+
+        [Fact]
+        public void CheckExistingProductForOrderStatus()
+        {
+            manager.Add(_product);
+            bool exists = manager.CheckProductForOrders(1);
+
+            Assert.True(exists);
         }
     }
 }

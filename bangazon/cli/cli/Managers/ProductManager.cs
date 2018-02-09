@@ -26,5 +26,10 @@ namespace cli
         {
             _productTable.Remove(product);
         }
+
+        public bool CheckProductForOrders(int id)
+        {
+            return _productTable.Where(p => p.ProductId == id).Any();
+        }
     }
 }
