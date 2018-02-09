@@ -31,5 +31,10 @@ namespace cli
         {
             return _productTable.Where(p => p.ProductId == id).Any();
         }
+
+        public List<Product> GetAllCustomerProducts(int id)
+        {
+            return _productTable.Where(p => p.CustomerId == id).ToList();
+        }
     }
 }

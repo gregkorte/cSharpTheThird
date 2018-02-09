@@ -61,12 +61,21 @@ namespace cli.tests
         }
 
         [Fact]
-        public void CheckExistingProductForOrderStatus()
+        public void CheckProductForOrders()
         {
             manager.Add(_product);
             bool exists = manager.CheckProductForOrders(1);
 
             Assert.True(exists);
+        }
+
+        [Fact]
+        public void GetAllCustomerProducts()
+        {
+            manager.Add(_product);
+            List<Product> allCustomerProducts = manager.GetAllCustomerProducts(1);
+
+            Assert.Contains(_product, allCustomerProducts);
         }
     }
 }
