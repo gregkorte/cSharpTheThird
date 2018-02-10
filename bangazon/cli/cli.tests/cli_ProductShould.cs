@@ -77,5 +77,15 @@ namespace cli.tests
 
             Assert.Contains(_product, allCustomerProducts);
         }
+
+        [Fact]
+        public void UpdateProduct()
+        {
+            manager.Add(_product);
+            manager.UpdateProduct(1, "Price", 33.99);
+            Product product = manager.GetSingleProduct(1);
+             
+            Assert.Equal(33.99, product.Price);  
+        }
     }
 }

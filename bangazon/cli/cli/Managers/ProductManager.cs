@@ -36,5 +36,11 @@ namespace cli
         {
             return _productTable.Where(p => p.CustomerId == id).ToList();
         }
+
+        public void UpdateProduct(int id, string property, double value)
+        {
+            Product product = _productTable.Where(p => p.ProductId == id).Single();
+            product.GetType().GetProperty(property).SetValue(product, value);
+        }
     }
 }
