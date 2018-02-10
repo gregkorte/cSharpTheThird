@@ -42,5 +42,7 @@ namespace cli
             Product product = _productTable.Where(p => p.ProductId == id).Single();
             product.GetType().GetProperty(property).SetValue(product, value);
         }
+
+        
     }
 }

@@ -7,6 +7,7 @@ namespace cli.tests
     public class ProductShould
     {
         private Product _product;
+        private Product _product2;
         private ProductManager manager = new ProductManager();
 
         public ProductShould()
@@ -16,6 +17,15 @@ namespace cli.tests
                 "Shovel",
                 "I dig this thing",
                 34.99,
+                1,
+                1
+            );
+
+            _product2 = new Product(
+                2,
+                "Hammer",
+                "Maxwell's is silver",
+                20.99,
                 1,
                 1
             );
@@ -86,6 +96,22 @@ namespace cli.tests
             Product product = manager.GetSingleProduct(1);
              
             Assert.Equal(33.99, product.Price);  
+        }
+
+        [Fact]
+        public void HavePropertyDateCreated()
+        {
+            manager.Add(_product);
+            Product product = manager.GetSingleProduct(1);
+
+            Assert.Equal(_product.DateCreated, product.DateCreated);
+        }
+
+        [Fact]
+        public void GetStaleProducts()
+        {
+            manager.Add(_product);
+            manager.Add(_product);
         }
     }
 }
