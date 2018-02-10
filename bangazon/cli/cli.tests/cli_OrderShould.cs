@@ -51,5 +51,14 @@ namespace cli.tests
 
             Assert.Equal(3, order.PaymentTypeId);
         }
+
+        [Fact]
+        public void HavePropertyDateCreated()
+        {
+            manager.Add(_order);
+            Order order = manager.GetSingleOrder(1);
+
+            Assert.Equal(_order.DateCreated, order.DateCreated);
+        }
     }
 }

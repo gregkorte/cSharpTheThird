@@ -1,3 +1,5 @@
+using System;
+
 namespace cli
 {
     public class Order
@@ -7,6 +9,8 @@ namespace cli
         public int CustomerId { get; set; }
 
         public int? PaymentTypeId { get; set; }
+
+        public DateTime DateCreated { get; set; } = DateTime.Now;
 
         public Order(int id, int customerId, int? paymentType)
         {
