@@ -7,7 +7,8 @@ namespace cli.tests
     public class ProductShould
     {
         private Product _product;
-        private Product _product2;
+        private Order _order;
+        private OrderProduct _op1;
         private ProductManager manager = new ProductManager();
 
         public ProductShould()
@@ -21,14 +22,17 @@ namespace cli.tests
                 1
             );
 
-            _product2 = new Product(
-                2,
-                "Hammer",
-                "Maxwell's is silver",
-                20.99,
+            _order = new Order(
                 1,
-                1
+                1,
+                null
             );
+
+            _op1 = new OrderProduct();
+            _op1.OrderProductId = 1;
+            _op1.OrderId = 1;
+            _op1.ProductId = 1;
+
         }
 
         [Fact]
@@ -108,10 +112,14 @@ namespace cli.tests
         }
 
         [Fact]
-        public void GetStaleProducts()
+        public void GetStaleProductsNoOrdersMoreThan180()
         {
             manager.Add(_product);
+            _product.DateCreated = new DateTime(2010, 09, 3, 9, 6, 13);
             manager.Add(_product);
+            List<Product> staleProducts = manager.GetStaleProducts();
+
+            Assert.Contains(_product, staleProducts);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,6 +44,9 @@ namespace cli
             product.GetType().GetProperty(property).SetValue(product, value);
         }
 
-        
+        public List<Product> GetStaleProducts()
+        {
+            return _productTable.Where(p => p.DateCreated < DateTime.Now.AddDays(-180)).ToList();
+        }
     }
 }
