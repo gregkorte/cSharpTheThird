@@ -5,7 +5,7 @@ using Xunit;
 
 namespace cli.tests
 {
-    public class CustomerShould
+    public class CustomerShould : IDisposable
     {
         private Customer _customer;
         private CustomerManager _manager;
@@ -64,6 +64,11 @@ namespace cli.tests
             Customer activeCustomer = _manager.GetActiveCustomer(customer);
 
             Assert.Equal(_customer, activeCustomer);
+        }
+
+        public void Dispose()
+        {
+            _manager.Delete($"delete from customer");
         }
     }
 }

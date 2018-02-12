@@ -39,5 +39,10 @@ namespace cli
             _activeCustomer = customer;
             return _activeCustomer;
         }
+
+        public void Delete(string command)
+        {
+            _db.Delete(command);
+        }
     }
 }
