@@ -8,12 +8,16 @@ namespace cli.tests
     public class CustomerShould
     {
         private Customer _customer;
-        private CustomerManager _manager = new CustomerManager();
+        private CustomerManager _manager;
+        private DatabaseInterface _db;
 
         public CustomerShould()
         {
+            _db = new DatabaseInterface("CLI_TEST_DB");
+            _manager = new CustomerManager(_db);
+            _db.CheckCustomerTable();
+
             _customer = new Customer(
-                1,
                 "Jimminy",
                 "Cricket",
                 "345 Pinnoc Ln",
@@ -27,6 +31,7 @@ namespace cli.tests
         [Fact]
         public void AddPropertiesToCustomerInstance()
         {
+            _manager.Add(_customer);
             Assert.Equal(_customer.PhoneNumber, "123-456-7890");
         }
 

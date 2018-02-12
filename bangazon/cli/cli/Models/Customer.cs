@@ -11,9 +11,8 @@ namespace cli
         public string  ZipCode { get; set; }
         public string PhoneNumber { get; set; }
 
-        public Customer(int id, string first, string last, string address, string city, string state, string zip, string phone)
+        public Customer(string first, string last, string address, string city, string state, string zip, string phone)
         {
-            CustomerId = id;
             FirstName = first;
             LastName = last;
             StreetAddress = address;
