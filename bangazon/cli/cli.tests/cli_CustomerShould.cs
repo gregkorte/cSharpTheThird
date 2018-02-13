@@ -7,7 +7,7 @@ namespace cli.tests
 {
     public class CustomerShould : IDisposable
     {
-        private Customer _customer;
+        private Customer _customer = new Customer();
         private CustomerManager _manager;
         private DatabaseInterface _db;
 
@@ -17,15 +17,13 @@ namespace cli.tests
             _manager = new CustomerManager(_db);
             _db.CheckCustomerTable();
 
-            _customer = new Customer(
-                "Jimminy",
-                "Cricket",
-                "345 Pinnoc Ln",
-                "Somewhere",
-                "Shomehow",
-                "98765",
-                "123-456-7890"
-            );
+            _customer.FirstName = "Jimminy";
+            _customer.LastName = "Cricket";
+            _customer.StreetAddress = "345 Pinnoc Ln";
+            _customer.City = "Somewhere";
+            _customer.State = "Shomehow";
+            _customer.ZipCode = "98765";
+            _customer.PhoneNumber = "123-456-7890";
         }
 
         [Fact]
@@ -68,7 +66,7 @@ namespace cli.tests
 
         public void Dispose()
         {
-            _manager.Delete($"delete from customer");
+            _db.Delete($"delete from customer");
         }
     }
 }
