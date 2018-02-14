@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Data.Sqlite;
 
 namespace cli
 {
@@ -24,9 +26,24 @@ namespace cli
 
         public Customer GetSingleCustomer(int id)
         {
-            Customer customer = _customerTable.Where(c => c.CustomerId == id).Single();
-            // activeCustomer = customer;
-            return customer;
+            Customer c = new Customer();
+            _db.Query($"SELECT * FROM customer WHERE CustomerId == {id}",
+                (SqliteDataReader reader) => {
+                    while(reader.Read())
+                    {
+                        c.CustomerId = reader.GetInt32(0);
+                        c.FirstName = reader["FirstName"].ToString();
+                        c.LastName = reader["LastName"].ToString();
+                        c.StreetAddress = reader[3].ToString();
+                        c.City = reader["City"].ToString();
+                        c.State = reader[5].ToString();
+                        c.ZipCode = reader["ZipCode"].ToString();
+                        c.PhoneNumber = reader["PhoneNumber"].ToString();
+                    }
+                }
+            );
+            _activeCustomer = c;
+            return c;
         }
         
         public List<Customer> GetAllCustomers()
@@ -38,11 +55,6 @@ namespace cli
         {
             _activeCustomer = customer;
             return _activeCustomer;
-        }
-
-        public void Delete(string command)
-        {
-            _db.Delete(command);
         }
     }
 }

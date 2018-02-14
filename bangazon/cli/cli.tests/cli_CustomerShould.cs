@@ -17,6 +17,7 @@ namespace cli.tests
             _manager = new CustomerManager(_db);
             _db.CheckCustomerTable();
 
+            _customer.CustomerId = 1;
             _customer.FirstName = "Jimminy";
             _customer.LastName = "Cricket";
             _customer.StreetAddress = "345 Pinnoc Ln";
@@ -42,6 +43,7 @@ namespace cli.tests
 
             Assert.Equal(customer.CustomerId 
             , 1);
+            Assert.IsType<Customer>(customer);
         }
 
         [Fact]
@@ -61,12 +63,13 @@ namespace cli.tests
             Customer customer = _manager.GetSingleCustomer(1);
             Customer activeCustomer = _manager.GetActiveCustomer(customer);
 
-            Assert.Equal(_customer, activeCustomer);
+            Assert.Equal(_customer.CustomerId, activeCustomer.CustomerId);
         }
 
         public void Dispose()
         {
             _db.Delete($"delete from customer");
+            _db.Delete($"delete from sqlite_sequence where name='customer'");
         }
     }
 }
