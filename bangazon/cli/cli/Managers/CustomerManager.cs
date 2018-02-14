@@ -48,6 +48,23 @@ namespace cli
         
         public List<Customer> GetAllCustomers()
         {
+            _db.Query($"SELECT * FROM customer",
+                (SqliteDataReader reader) => {
+                    while(reader.Read())
+                    {
+                        _customerTable.Add(new Customer(){
+                            CustomerId = reader.GetInt32(0),
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            StreetAddress = reader[3].ToString(),
+                            City = reader["City"].ToString(),
+                            State = reader[5].ToString(),
+                            ZipCode = reader["ZipCode"].ToString(),
+                            PhoneNumber = reader["PhoneNumber"].ToString()
+                        });
+                    }
+                }
+            );
             return _customerTable;
         }
 
