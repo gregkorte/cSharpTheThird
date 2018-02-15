@@ -68,9 +68,8 @@ namespace cli
             return _customerTable;
         }
 
-        public Customer GetActiveCustomer(Customer customer)
+        public Customer GetActiveCustomer()
         {
-            _activeCustomer = customer;
             return _activeCustomer;
         }
     }

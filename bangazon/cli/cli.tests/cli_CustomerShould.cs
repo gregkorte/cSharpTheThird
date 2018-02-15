@@ -61,7 +61,7 @@ namespace cli.tests
         {
             _manager.Add(_customer);
             Customer customer = _manager.GetSingleCustomer(1);
-            Customer activeCustomer = _manager.GetActiveCustomer(customer);
+            Customer activeCustomer = _manager.GetActiveCustomer();
 
             Assert.Equal(_customer.CustomerId, activeCustomer.CustomerId);
         }
