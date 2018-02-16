@@ -19,7 +19,7 @@ namespace cli
         public int Add(Customer customer)
         {
             _customerTable.Add(customer);
-            int id = _db.Insert($"insert into customer values (null, '{customer.FirstName}', '{customer.LastName}', '{customer.StreetAddress}', '{customer.City}', '{customer.ZipCode}', '{customer.PhoneNumber}')");
+            int id = _db.Insert($"insert into customers values (null, '{customer.FirstName}', '{customer.LastName}', '{customer.StreetAddress}', '{customer.City}', '{customer.ZipCode}', '{customer.PhoneNumber}')");
 
             return id;
         }
@@ -27,7 +27,7 @@ namespace cli
         public Customer GetSingleCustomer(int id)
         {
             Customer c = new Customer();
-            _db.Query($"SELECT * FROM customer WHERE CustomerId == {id}",
+            _db.Query($"SELECT * FROM customers WHERE CustomerId == {id}",
                 (SqliteDataReader reader) => {
                     while(reader.Read())
                     {
@@ -48,7 +48,7 @@ namespace cli
         
         public List<Customer> GetAllCustomers()
         {
-            _db.Query($"SELECT * FROM customer",
+            _db.Query($"SELECT * FROM customers",
                 (SqliteDataReader reader) => {
                     while(reader.Read())
                     {
