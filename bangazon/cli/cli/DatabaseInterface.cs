@@ -73,7 +73,43 @@ namespace cli
             using(SqliteCommand dbcmd = _connection.CreateCommand())
             {
                 _connection.Open();
-                dbcmd.CommandText = $"select CustomerId from customer";
+                dbcmd.CommandText = $"select CustomerId from customers";
+
+                try
+                {
+                    using(SqliteDataReader reader = dbcmd.ExecuteReader())
+                    {
+
+                    }
+                }
+                catch(Microsoft.Data.Sqlite.SqliteException ex)
+                {
+                    if(ex.Message.Contains("no such table"))
+                    {
+                        dbcmd.CommandText = $@"create table customers (
+                            `CustomerId`        integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+                            `FirstName`         varchar(80) not null,
+                            `LastName`          varchar(80) not null,
+                            `StreetAddress `    varchar(160) not null,
+                            `City`              varchar(80) not null,
+                            `ZipCode`           varchar(5) not null,
+                            `PhoneNumber`       varchar(20) not null
+                        )";
+                        dbcmd.ExecuteNonQuery();
+                    }                    
+                }
+                _connection.Close();
+            }
+        }
+
+        public void CheckPaymentTypeTable()
+        {
+            using(_connection)
+
+            using(SqliteCommand dbcmd = _connection.CreateCommand())
+            {
+                _connection.Open();
+                dbcmd.CommandText = $"select PaymentTypeId from paymentTypes";
 
                 try
                 {
@@ -87,17 +123,15 @@ namespace cli
                     Console.WriteLine(ex.Message);
                     if(ex.Message.Contains("no such table"))
                     {
-                        dbcmd.CommandText = $@"create table customer (
-                            `CustomerId`        integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-                            `FirstName`         varchar(80) not null,
-                            `LastName`          varchar(80) not null,
-                            `StreetAddress `    varchar(160) not null,
-                            `City`              varchar(80) not null,
-                            `ZipCode`           varchar(5) not null,
-                            `PhoneNumber`       varchar(20) not null
+                        dbcmd.CommandText = $@"create table paymentTypes (
+                            `PaymentTypeId`     integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+                            `Name`              varchar(30) not null,
+                            `AccountNumber `    varchar(20) not null,
+                            `CustomerId`        integer NOT NULL,
+                            FOREIGN KEY(CustomerId) REFERENCES customer(CustomerId)
                         )";
                         dbcmd.ExecuteNonQuery();
-                    }                    
+                    }
                 }
                 _connection.Close();
             }
