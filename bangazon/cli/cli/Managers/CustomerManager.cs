@@ -9,7 +9,7 @@ namespace cli
     {
         private DatabaseInterface _db;
         private List<Customer> _customerTable = new List<Customer>();
-        private Customer _activeCustomer;
+        private static Customer _activeCustomer;
 
         public CustomerManager(DatabaseInterface db)
         {
