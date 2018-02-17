@@ -126,9 +126,9 @@ namespace cli
                         dbcmd.CommandText = $@"create table paymentTypes (
                             `PaymentTypeId`     integer NOT NULL PRIMARY KEY AUTOINCREMENT,
                             `Name`              varchar(30) not null,
-                            `AccountNumber `    varchar(20) not null,
-                            `CustomerId`        integer NOT NULL,
-                            FOREIGN KEY(CustomerId) REFERENCES customer(CustomerId)
+                            `AccountNumber`     varchar(20) not null,
+                            `CustomerId`        integer not null,
+                            FOREIGN KEY(`CustomerId`) REFERENCES `customers`(`CustomerId`)
                         )";
                         dbcmd.ExecuteNonQuery();
                     }
