@@ -39,39 +39,56 @@ namespace cli.tests
         {
             _cm.Add(_customer);
             _cm.GetSingleCustomer(1);
-            _manager.Add(_paymentType);
+            int id = _manager.Add(_paymentType);
 
-            Assert.Equal(_paymentType.CustomerId, 1);
+            Assert.Equal("Visa", _paymentType.Name);
         }
 
-        // [Fact]
-        // public void GetSinglePaymentType()
-        // {
-        //     _cm.Add(_customer);
-        //     _manager.Add(_paymentType);
+        [Fact]
+        public void AddActiveCustomerToPaymentType()
+        {
+            _cm.Add(_customer);
+            _cm.GetSingleCustomer(1);
+            _manager.Add(_paymentType);
 
-        //     PaymentType paymentType = _manager.GetSinglePaymentType(1);
+            PaymentType paymentType = _manager.GetSinglePaymentType(1);
 
-        //     Assert.Equal(paymentType.PaymentTypeId 
-        //     , 1);
-        // }
+            Assert.Equal(1, paymentType.CustomerId 
+            );
+        }
 
-        // [Fact]
-        // public void GetAllPaymentTypesForCustomer()
-        // {
-        //     _manager.Add(_paymentType);
+        [Fact]
+        public void GetSinglePaymentType()
+        {
+            _cm.Add(_customer);
+            _cm.GetSingleCustomer(1);
+            _manager.Add(_paymentType);
 
-        //     List<PaymentType> allPaymentTypes = _manager.GetAllPaymentTypes();
+            PaymentType paymentType = _manager.GetSinglePaymentType(1);
 
-        //     Assert.Contains(_paymentType, allPaymentTypes);
-        // }
+            Assert.Equal(1, paymentType.PaymentTypeId 
+            );
+        }
+
+        [Fact]
+        public void GetAllPaymentTypesForCustomer()
+        {
+            _cm.Add(_customer);
+            _cm.GetSingleCustomer(1);
+            _manager.Add(_paymentType);
+            var pt = _manager.GetSinglePaymentType(1);
+
+            List<PaymentType> allPaymentTypes = _manager.GetAllPaymentTypes();
+
+            Assert.
+        }
 
         public void Dispose()
         {
-            _db.Delete($"delete from customers");
-            _db.Delete($"delete from sqlite_sequence where name='customers'");
             _db.Delete($"delete from paymentTypes");
             _db.Delete($"delete from sqlite_sequence where name='paymentTypes'");
+            _db.Delete($"delete from customers");
+            _db.Delete($"delete from sqlite_sequence where name='customers'");
         }
     }
 }
