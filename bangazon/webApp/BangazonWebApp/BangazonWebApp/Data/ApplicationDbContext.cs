@@ -22,5 +22,11 @@ namespace BangazonWebApp.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<BangazonWebApp.Models.Order> Order { get; set; }
+        public DbSet<BangazonWebApp.Models.OrderProduct> OrderProduct { get; set; }
+        public DbSet<BangazonWebApp.Models.PaymentType> PaymentType { get; set; }
+        public DbSet<BangazonWebApp.Models.Product> Product { get; set; }
+        public DbSet<BangazonWebApp.Models.ProductType> ProductType { get; set; }
     }
 }
