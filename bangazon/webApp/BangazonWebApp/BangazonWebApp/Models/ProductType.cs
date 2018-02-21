@@ -19,6 +19,7 @@ namespace BangazonWebApp.Models
 
         [NotMapped]
         public int Quantity { get; set; }
+
         public ICollection<Product> Products;
     }
 }
