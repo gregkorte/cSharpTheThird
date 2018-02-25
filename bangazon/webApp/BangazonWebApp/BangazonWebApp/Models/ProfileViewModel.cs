@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BangazonWebApp.Models.ManageViewModels
+namespace BangazonWebApp.Models
 {
     public class ProfileViewModel
     {
@@ -37,5 +37,7 @@ namespace BangazonWebApp.Models.ManageViewModels
 
         [Display(Name = "Order History")]
         public ICollection<Order> Orders { get; set; }
+
+        public string StatusMessage { get; set; }
     }
 }
