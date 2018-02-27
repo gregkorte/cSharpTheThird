@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BangazonWebApp.Controllers
 {
+    [Route("[controller]/[action]")]
     public class ProfileController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -35,6 +36,10 @@ namespace BangazonWebApp.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            var pt = _context.PaymentType.Where(p => p.User.Id == user.Id).ToList();
+
+            var ord = _context.Order.Where(o => o.User.Id == user.Id).ToList();
+
             ProfileViewModel model = new ProfileViewModel();
 
             model.FirstName = user.FirstName;
@@ -44,41 +49,14 @@ namespace BangazonWebApp.Controllers
             model.State = user.State;
             model.ZipCode = user.ZipCode;
             model.PhoneNumber = user.PhoneNumber;
+            model.PaymentTypes = pt;
+            model.Orders = ord;
             StatusMessage = StatusMessage;
 
             return View(model);
         }
 
-        // GET: Profile/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Profile/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Profile/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Profile/Edit/5
+        // GET: Profile/Edit
         public async Task<IActionResult> Edit(int id)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -88,51 +66,46 @@ namespace BangazonWebApp.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            ProfileViewModel model = new ProfileViewModel();
-
-            model.FirstName = user.FirstName;
-            model.LastName = user.LastName;
-            model.StreetAddress = user.StreetAddress;
-            model.City = user.City;
-            model.State = user.State;
-            model.ZipCode = user.ZipCode;
-            model.PhoneNumber = user.PhoneNumber;
+            ProfileViewModel model = new ProfileViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                StreetAddress = user.StreetAddress,
+                City = user.City,
+                State = user.State,
+                ZipCode = user.ZipCode,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email
+            };
 
             return View(model);
         }
 
-        // POST: Profile/Edit/5
+        // POST: Profile/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task <IActionResult> Edit(ProfileViewModel model)
         {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+            
+            user.LastName = model.LastName;
+            user.StreetAddress = model.StreetAddress;
+            user.City = model.City;
+            user.State = model.State;
+            user.ZipCode = model.ZipCode;
+            user.PhoneNumber = model.PhoneNumber;
+
             try
             {
                 // TODO: Add update logic here
+                _context.Update(user);
+                _context.SaveChanges();
                 StatusMessage = "Your profile has been updated.";
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Profile/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Profile/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
                 return RedirectToAction(nameof(Index));
             }
             catch
