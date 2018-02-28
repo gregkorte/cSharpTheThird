@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h4>Details for @Model.Name ending in  xxxx-@Model.AccountNumber.Substring((Model.AccountNumber.Length - 4), 4)</h4>
 
 <div>
-    <h4>PaymentType</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -38,5 +37,5 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.PaymentTypeId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-controller="Profile">Back to Profile</a>
 </div>
