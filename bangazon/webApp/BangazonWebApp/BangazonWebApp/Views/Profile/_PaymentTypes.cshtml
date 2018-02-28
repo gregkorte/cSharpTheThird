@@ -7,5 +7,8 @@
 
 @foreach (var pt in Model.PaymentTypes)
 {
-<div class="row"><a asp-action="Details" asp-controller="PaymentTypes" asp-route-id="@pt.PaymentTypeId"><span><span class="col-md-4">@pt.Name</span><span class="col-md-4">xxxx - @pt.AccountNumber.Substring((pt.AccountNumber.Length - 4), 4)</span></span></a><span class="col-md-4"><a asp-action="Delete" asp-controller="PaymentTypes" asp-route-id="@pt.PaymentTypeId">Delete</a></span></div>
+<div class="row">
+    <span class="col-md-4">@pt.Name</span>
+    <span class="col-md-4">xxxx - @pt.AccountNumber.Substring((pt.AccountNumber.Length - 4), 4)</span>
+</div>
 }
