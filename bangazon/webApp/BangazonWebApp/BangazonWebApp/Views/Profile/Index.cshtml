@@ -3,7 +3,7 @@
     ViewData["Title"] = "Profile";
     ViewData["Types"] = "Payment Types";
     ViewData["Orders"] = "Order History";
-    ViewData.AddActivePage(ProfileNavPages.Index);
+    @*ViewData.AddActivePage(ProfileNavPages.Index);*@
 }
 
 
@@ -16,7 +16,11 @@
         <div>@Model.City</div>
         <div>@Model.State</div>
         <div>@Model.ZipCode</div>
-        <div><h4>@ViewData["Types"]</h4></div>
+        <div>
+            @*<h4>@ViewData["Types"]</h4>*@
+            @Html.Partial("_PaymentTypes", Model)
+            <h6><a asp-controller="PaymentTypes" asp-action="Create">Add A Payment Method</a></h6>
+        </div>
     </div>
     <div class="col-md-6">
         <h4>@ViewData["Orders"]</h4>

@@ -1,0 +1,11 @@
+﻿@model ProfileViewModel
+@{
+    ViewData["Title"] = "Payment Types";
+}
+
+<h4>@ViewData["Title"]</h4>
+
+@foreach (var pt in Model.PaymentTypes)
+{
+    <div><a asp-action="Detail">@pt.Name</a></div>
+}
