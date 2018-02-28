@@ -74,7 +74,7 @@ namespace BangazonWebApp.Controllers
             {
                 _context.Add(pt);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "ProfileController");
+                return RedirectToAction("Index", "Profile");
             }
             return View(paymentType);
         }
