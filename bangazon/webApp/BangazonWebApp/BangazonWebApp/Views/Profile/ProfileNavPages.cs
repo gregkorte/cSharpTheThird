@@ -15,9 +15,13 @@ namespace BangazonWebApp.Views.Profile
 
         public static string Edit => "Edit";
 
+        public static string PaymentOption => "PaymentOption";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string EditNavClass(ViewContext viewContext) => PageNavClass(viewContext, Edit);
+
+        public static string PaymentOptionNavClass(ViewContext viewContext) => PageNavClass(viewContext, PaymentOption);
 
         public static string PageNavClass(ViewContext viewContext, string page)
         {

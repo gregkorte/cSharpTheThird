@@ -3,4 +3,5 @@
 <ul class="nav nav-pills nav-stacked">
     <li class="@ProfileNavPages.IndexNavClass(ViewContext)"><a asp-action="Index">My Account</a></li>
     <li class="@ProfileNavPages.EditNavClass(ViewContext)"><a asp-action="Edit">Edit Account</a></li>
+    <li class="@ProfileNavPages.PaymentOptionNavClass(ViewContext)"><a asp-controller="PaymentTypes" asp-action="Create">Add Payment Option</a></li>
 </ul>
