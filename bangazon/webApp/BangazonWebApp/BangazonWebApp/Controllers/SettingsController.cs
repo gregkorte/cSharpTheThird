@@ -27,7 +27,7 @@ namespace BangazonWebApp.Controllers
         public string StatusMessage { get; set; }
         // GET: Settings
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
