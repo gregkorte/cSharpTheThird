@@ -125,7 +125,7 @@ namespace BangazonWebApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("PaymentOptions", "Settings");
             }
             return View(paymentType);
         }
@@ -156,7 +156,7 @@ namespace BangazonWebApp.Controllers
             var paymentType = await _context.PaymentType.SingleOrDefaultAsync(m => m.PaymentTypeId == id);
             _context.PaymentType.Remove(paymentType);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Profile");
+            return RedirectToAction("PaymentOptions", "Settings");
         }
 
         private bool PaymentTypeExists(int id)
