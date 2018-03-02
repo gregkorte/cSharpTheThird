@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BangazonWebApp.Data;
 using BangazonWebApp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BangazonWebApp.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Products
@@ -59,11 +62,25 @@ namespace BangazonWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Title,Description,DateCreated,Price,ProductTypeId,Location,ImagePath")] Product product)
         {
+            ModelState.Remove("User");
+            var p = new Product()
+            {
+                ProductId = product.ProductId,
+                Title = product.Title,
+                Description = product.Description,
+                DateCreated = product.DateCreated,
+                Price = product.Price,
+                ProductTypeId = product.ProductTypeId,
+                Location = product.Location,
+                ImagePath = product.ImagePath,
+                User = await _userManager.GetUserAsync(User)
+            };
+
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(p);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
             return View(product);
