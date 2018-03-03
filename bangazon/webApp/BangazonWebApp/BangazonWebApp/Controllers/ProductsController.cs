@@ -80,7 +80,7 @@ namespace BangazonWebApp.Controllers
             {
                 _context.Add(p);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction("Details", new { id = p.ProductId });
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
             return View(product);
