@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<BangazonWebApp.Models.ProductCategoryViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Product Categories";
 }
 
-<h2>Index</h2>
+<h2>Product Categories</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -23,12 +20,10 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Label) (@Html.DisplayFor(modelItem => item.ProductCount))
-                <ul>
-                    @foreach (var product in item.Products)
-        {
-            <li>@product.Title</li>
-}
-                </ul>
+                @foreach (var product in item.Products)
+                {
+                    <div class="col-md-offset-1"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">@product.Title</a></div>
+                }
             </td>
             
         </tr>
