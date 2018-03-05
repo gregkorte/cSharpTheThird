@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BangazonWebApp.Models.ProductType>
+﻿@model IEnumerable<BangazonWebApp.Models.ProductCategoryViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,13 +22,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Label)
+                @Html.DisplayFor(modelItem => item.Label) (@Html.DisplayFor(modelItem => item.ProductCount))
+                <ul>
+                    @foreach (var product in item.Products)
+        {
+            <li>@product.Title</li>
+}
+                </ul>
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductTypeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductTypeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductTypeId">Delete</a>
-            </td>
+            
         </tr>
 }
     </tbody>

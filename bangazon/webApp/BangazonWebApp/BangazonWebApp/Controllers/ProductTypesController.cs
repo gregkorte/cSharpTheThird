@@ -22,7 +22,22 @@ namespace BangazonWebApp.Controllers
         // GET: ProductTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ProductType.ToListAsync());
+            var allCategories = await _context.ProductType.ToListAsync();
+
+            var model = new List<ProductCategoryViewModel>();
+
+            foreach(var cat in allCategories)
+            {
+                ProductCategoryViewModel category = new ProductCategoryViewModel()
+                {
+                    Label = cat.Label,
+                    ProductCount = _context.Product.Where(p => cat.ProductTypeId == p.ProductTypeId).Count(),
+                    Products = _context.Product.Where(p => cat.ProductTypeId == p.ProductTypeId).Take(3).ToList()
+                };
+                model.Add(category);
+            }
+
+            return View(model);
         }
 
         // GET: ProductTypes/Details/5
