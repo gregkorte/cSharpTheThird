@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace BangazonWebApp.Data.Migrations
@@ -324,7 +322,7 @@ namespace BangazonWebApp.Data.Migrations
                     b.HasOne("BangazonWebApp.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BangazonWebApp.Models.OrderProduct", b =>
@@ -332,12 +330,12 @@ namespace BangazonWebApp.Data.Migrations
                     b.HasOne("BangazonWebApp.Models.Order", "Order")
                         .WithMany("LineItmes")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BangazonWebApp.Models.Product", "Product")
                         .WithMany("LineItems")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BangazonWebApp.Models.PaymentType", b =>
@@ -345,7 +343,7 @@ namespace BangazonWebApp.Data.Migrations
                     b.HasOne("BangazonWebApp.Models.ApplicationUser", "User")
                         .WithMany("PaymentTypes")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BangazonWebApp.Models.Product", b =>
@@ -353,12 +351,12 @@ namespace BangazonWebApp.Data.Migrations
                     b.HasOne("BangazonWebApp.Models.ProductType", "ProductType")
                         .WithMany()
                         .HasForeignKey("ProductTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BangazonWebApp.Models.ApplicationUser", "User")
                         .WithMany("Products")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
