@@ -19,7 +19,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Label) (@Html.DisplayFor(modelItem => item.ProductCount))
+                <a asp-controller="ProductTypes" asp-action="Products" asp-route-id="@item.ProductTypeId">
+                    @Html.DisplayFor(modelItem => item.Label) (@Html.DisplayFor(modelItem => item.ProductCount))
+                </a>
                 @foreach (var product in item.Products)
                 {
                     <div class="col-md-offset-1"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">@product.Title</a></div>

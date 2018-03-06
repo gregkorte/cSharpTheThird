@@ -167,6 +167,21 @@ namespace BangazonWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: ProductTypes/Products
+        public async Task<IActionResult> Products(int id)
+        {
+
+            var producttype = await _context.ProductType.SingleOrDefaultAsync(m => m.ProductTypeId == id);
+            var products = _context.Product.Where(p => p.ProductTypeId == id).ToList();
+
+            var model = new ProductTypeProductListViewModel()
+            {
+                Products = products
+            };
+
+            return View(products);
+        }
+
         private bool ProductTypeExists(int id)
         {
             return _context.ProductType.Any(e => e.ProductTypeId == id);
