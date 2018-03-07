@@ -31,6 +31,7 @@ namespace BangazonWebApp.Controllers
                 ProductCategoryViewModel category = new ProductCategoryViewModel()
                 {
                     Label = cat.Label,
+                    ProductTypeId = cat.ProductTypeId,
                     ProductCount = _context.Product.Where(p => cat.ProductTypeId == p.ProductTypeId).Count(),
                     Products = _context.Product.Where(p => cat.ProductTypeId == p.ProductTypeId).Take(3).ToList()
                 };
@@ -179,7 +180,7 @@ namespace BangazonWebApp.Controllers
                 Products = products
             };
 
-            return View(products);
+            return View(model);
         }
 
         private bool ProductTypeExists(int id)

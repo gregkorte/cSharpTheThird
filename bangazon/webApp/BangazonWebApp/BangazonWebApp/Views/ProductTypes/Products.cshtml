@@ -1,0 +1,27 @@
+﻿@model BangazonWebApp.Models.ProductTypeProductListViewModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2>Products</h2>
+
+<table class="table">
+    @*@foreach (var category in Model)
+        {*@
+    @foreach (var product in Model.Products)
+    {
+        <tr>
+            <td class="col-md-5">
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">@product.Title</a>
+            </td>
+            <td class="col-md-2">
+                @product.Quantity
+            </td>
+            <td class="col-md-2">
+                @product.Price
+            </td>
+        </tr>
+    }
+    @* } *@
+</table>
+
