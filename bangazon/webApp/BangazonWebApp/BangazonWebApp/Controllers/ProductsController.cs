@@ -169,6 +169,29 @@ namespace BangazonWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: Products/MyProducts
+        [HttpGet]
+        public async Task<IActionResult> MyProducts()
+        {
+            var myProducts = new List<MyProductsViewModel>();
+            var user = await _userManager.GetUserAsync(User);
+            var products = _context.Product.Where(p => p.User.Id == user.Id).ToList();
+
+            foreach(var p in products)
+            {
+                var product = new MyProductsViewModel()
+                {
+                    Title = p.Title,
+                    QuantityAvailable = 4,
+                    QuantitySold = 3
+                };
+
+                myProducts.Add(product);
+            }
+
+            return View(myProducts);
+        }
+
         private bool ProductExists(int id)
         {
             return _context.Product.Any(e => e.ProductId == id);

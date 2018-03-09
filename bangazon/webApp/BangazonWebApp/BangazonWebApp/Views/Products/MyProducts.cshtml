@@ -1,0 +1,39 @@
+﻿@model  List<MyProductsViewModel>
+
+@{
+    ViewData["Title"] = "MyProducts";
+}
+
+<h2>MyProducts</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Quantity Available
+            </th>
+            <th>
+                Quantity Sold
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.QuantityAvailable
+                </td>
+                <td>
+                    @item.QuantitySold
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
