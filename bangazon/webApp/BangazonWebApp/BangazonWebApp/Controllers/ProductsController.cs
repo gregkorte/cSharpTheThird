@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BangazonWebApp.Data;
 using BangazonWebApp.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Text.RegularExpressions;
 
 namespace BangazonWebApp.Controllers
 {
@@ -190,6 +191,33 @@ namespace BangazonWebApp.Controllers
             }
 
             return View(myProducts);
+        }
+
+        // Post: Products/Search
+        [HttpPost]
+        public async Task<IActionResult> Search([FromBody] string query)
+        {
+            var Products = new List<Product>();
+            var user = await _userManager.GetUserAsync(User);
+            var qRegex = new Regex(@"(?i)" + query + "(?-i)");
+            var products = _context.Product.Where(p => qRegex.IsMatch(p.Title)).ToList();
+
+            foreach (var p in products)
+            {
+                var product = new Product()
+                {
+                    Title = p.Title,
+                    Description = p.Description,
+                    ImagePath = p.ImagePath,
+                    Location = p.Location,
+                    Price = p.Price,
+                    Quantity = p.Quantity
+                };
+
+                Products.Add(product);
+            }
+
+            return View(Products);
         }
 
         private bool ProductExists(int id)
