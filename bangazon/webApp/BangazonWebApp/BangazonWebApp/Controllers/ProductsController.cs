@@ -195,8 +195,12 @@ namespace BangazonWebApp.Controllers
 
         // Post: Products/Search
         [HttpPost]
-        public async Task<IActionResult> Search([FromBody] string query)
+        public async Task<IActionResult> Search(string query)
         {
+            if (query == null)
+            {
+                return NotFound("These aren't the products you are looking for.");
+            }
             var Products = new List<Product>();
             var user = await _userManager.GetUserAsync(User);
             var qRegex = new Regex(@"(?i)" + query + "(?-i)");
