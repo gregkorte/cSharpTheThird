@@ -63,7 +63,7 @@ namespace BangazonWebApp.Controllers
             {
                 _context.Add(order);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(AddProduct));
             }
             ViewData["PaymentTypeId"] = new SelectList(_context.PaymentType, "PaymentTypeId", "AccountNumber", order.PaymentTypeId);
             return View(order);
@@ -150,6 +150,13 @@ namespace BangazonWebApp.Controllers
             _context.Order.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Orders/AddProduct
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(int id)
+        {
+            var order = Create();
         }
 
         private bool OrderExists(int id)
